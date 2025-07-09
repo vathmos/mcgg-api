@@ -1,0 +1,26 @@
+{
+  "name": "mcgg-api",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [
+    "mcg"
+  ],
+  "homepage": "https://github.com/vathmos/mcgg-api#readme",
+  "bugs": {
+    "url": "https://github.com/vathmos/mcgg-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vathmos/mcgg-api.git"
+  },
+  "license": "ISC",
+  "author": "vathmos",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

@@ -6,8 +6,8 @@ import {
 
 const router = Router();
 
-router.get("/synergy", getAllSynergies);
+router.get("/synergies", getAllSynergies);
 
-router.get("/synergy/:id", getSynergyById);
+router.get("/synergies/:id", getSynergyById);
 
 export default router;

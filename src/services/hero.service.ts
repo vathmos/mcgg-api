@@ -1,12 +1,7 @@
 import prisma from "../db";
 
 async function findHeroes() {
-  return await prisma.hero.findMany({
-    include: {
-      synergies: true,
-      skill: true,
-    },
-  });
+  return await prisma.hero.findMany();
 }
 
 async function findHeroById(id: number) {

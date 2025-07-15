@@ -20,22 +20,75 @@ enum TraitType {
   ROLE
 }
 
+model HeroAttribute {
+  id             Int      @id @default(autoincrement())
+  heroId         Int
+  starLevel      Int
+  healthPoints   Int
+  physicalAttack Int
+  magicAttack    Int
+  attackSpeed    Float
+  attackRange    Int
+  initialManaCap Int
+  manaCap        Int
+  hero           Hero     @relation("HeroAttributes", fields: [heroId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model SkillScaling {
+  id        Int       @id @default(autoincrement())
+  type      String
+  values    Float
+  skill     HeroSkill @relation(fields: [skillId], references: [id])
+  skillId   Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Season {
+  id        Int       @id @default(autoincrement())
+  version   String
+  title     String
+  heroes    Hero[]    @relation("HeroSeasons")
+  synergies Synergy[] @relation("SeasonSynergies")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
 model Synergy {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   trait     TraitType
   imageUrl  String?
   heroes    Hero[]    @relation("HeroSynergies")
+  seasons   Season[]  @relation("SeasonSynergies")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Hero {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  cost      Int
-  imageUrl  String?
-  synergies Synergy[] @relation("HeroSynergies")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id               Int             @id @default(autoincrement())
+  skillId          Int             @unique
+  name             String          @unique
+  cost             Int
+  portraitImageUrl String?
+  iconImageUrl     String?
+  attributes       HeroAttribute[] @relation("HeroAttributes")
+  synergies        Synergy[]       @relation("HeroSynergies")
+  Seasons          Season[]        @relation("HeroSeasons")
+  skill            HeroSkill       @relation("HeroToSkill", fields: [skillId], references: [id])
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
+model HeroSkill {
+  id          Int            @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String
+  scaling     SkillScaling[] @relation()
+  hero        Hero?          @relation("HeroToSkill")
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }

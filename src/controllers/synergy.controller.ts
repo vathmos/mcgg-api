@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { findSynergies, findSynergyById } from "../services/synergy.service";
+import {
+  findSynergies,
+  findSynergyById,
+} from "../services/synergy.service";
 
 async function getAllSynergies(req: Request, res: Response) {
   const synergies = await findSynergies();
@@ -7,7 +10,7 @@ async function getAllSynergies(req: Request, res: Response) {
 }
 
 async function getSynergyById(req: Request, res: Response) {
-  const { id } = req.params;
+  let { id } = req.params;
   const synergy = await findSynergyById(Number(id));
   res.json(synergy);
 }

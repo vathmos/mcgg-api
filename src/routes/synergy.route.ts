@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
   getAllSynergies,
-  getSynergyById,
+  getSynergyByParam,
 } from "../controllers/synergy.controller";
 
 const router = Router();
 
 router.get("/synergies", getAllSynergies);
 
-router.get("/synergies/:id", getSynergyById);
+router.get("/synergies/:param", getSynergyByParam);
 
 export default router;

@@ -1,33 +1,39 @@
 import { Request, Response } from "express";
-import { findHeroes, findHeroById } from "../services/hero.service";
-import { BASE_URL } from "../utils/urlBuilder";
-import { Hero } from "../generated/prisma";
-
-type HeroDto = {
-  name: string;
-  cost: number;
-  url: string;
-};
+import {
+  findHeroes,
+  findHeroById,
+  findHeroBySlug,
+} from "../services/hero.service";
+import heroToDto from "../utils/heroToDto";
+import synergyToDto from "../utils/synergyToDto";
 
 async function getAllHeroes(req: Request, res: Response) {
   const rawHeroes = await findHeroes();
-  function heroToDto(hero: Hero): HeroDto {
-    return {
-      name: hero.name,
-      cost: hero.cost,
-      url: `${BASE_URL}/heroes/${hero.id}`,
-    };
-  }
   const heroes = rawHeroes.map((hero) => {
     return heroToDto(hero);
   });
   res.json(heroes);
 }
 
-async function getHeroById(req: Request, res: Response) {
-  let { id } = req.params;
-  const hero = await findHeroById(Number(id));
-  res.json(hero);
+async function getHeroByParam(req: Request, res: Response) {
+  let { param } = req.params;
+  let hero;
+  if (/^\d+$/.test(param)) {
+    hero = await findHeroById(Number(param));
+  } else {
+    hero = await findHeroBySlug(param.replace(/-/g, " "));
+  }
+
+  if (!hero) {
+    return res.status(404).json({ message: "Hero not found" });
+  }
+
+  const { synergies: rawSynergies, ...rest } = hero;
+  const synergies = rawSynergies.map(synergy => synergyToDto(synergy));
+  res.json({
+    ...rest,
+    synergies
+  });
 }
 
-export { getAllHeroes, getHeroById };
+export { getAllHeroes, getHeroByParam };

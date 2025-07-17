@@ -1,13 +1,13 @@
 import { Router } from "express";
 import {
   getAllHeroes,
-  getHeroById,
+  getHeroByParam,
 } from "../controllers/hero.controller";
 
 const router = Router();
 
 router.get("/heroes", getAllHeroes);
 
-router.get("/heroes/:id", getHeroById);
+router.get("/heroes/:param", getHeroByParam);
 
 export default router;

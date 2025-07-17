@@ -9,7 +9,26 @@ async function findSynergyById(id: number) {
     where: {
       id,
     },
+    include: {
+      seasons: true,
+      heroes: true
+    }
   });
 }
 
-export { findSynergies, findSynergyById };
+async function findSynergyBySlug(slug: string) {
+  return await prisma.synergy.findFirst({
+    where: {
+      name: {
+        equals: slug,
+        mode: "insensitive",
+      },
+    },
+    include: {
+      seasons: true,
+      heroes: true
+    }
+  });
+}
+
+export { findSynergies, findSynergyById, findSynergyBySlug };

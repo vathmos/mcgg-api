@@ -15,5 +15,19 @@ async function findHeroById(id: number) {
     },
   });
 }
+async function findHeroBySlug(slug: string) {
+  return await prisma.hero.findFirst({
+    where: {
+      name: {
+        equals: slug,
+        mode: "insensitive",
+      },
+    },
+    include: {
+      synergies: true,
+      skill: true,
+    },
+  });
+}
 
-export { findHeroes, findHeroById };
+export { findHeroes, findHeroById, findHeroBySlug };

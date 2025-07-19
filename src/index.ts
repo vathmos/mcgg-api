@@ -15,6 +15,15 @@ app.get("/", (req: Request, res: Response) => {
   res.send("M C G G  A P I");
 });
 
+app.get("/api", (req: Request, res: Response) => {
+  res.json({
+    synergies: `${process.env.BASE_URL}/synergies`,
+    heroes: `${process.env.BASE_URL}/heroes`,
+    commander: `${process.env.BASE_URL}/commanders`,
+    items: `${process.env.BASE_URL}/items`,
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

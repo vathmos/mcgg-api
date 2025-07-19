@@ -20,10 +20,22 @@ enum TraitType {
   ROLE
 }
 
+enum CommanderType {
+  COMBAT
+  SURVIVAL
+  RESOURCE
+  STRATEGY
+}
+
+enum commanderSkillType {
+  ACTIVE
+  PASSIVE
+}
+
 model HeroAttribute {
   id             Int      @id @default(autoincrement())
   heroId         Int
-  starLevel      Int
+  level          Int
   healthPoints   Int
   physicalAttack Int
   magicAttack    Int
@@ -93,3 +105,41 @@ model HeroSkill {
   updatedAt   DateTime       @updatedAt
 }
 
+model Commander {
+  id               Int              @id @default(autoincrement())
+  commanderNumber  Int
+  name             String
+  title            String
+  type             CommanderType
+  chessPointPrice  Int
+  diamondPrice     Int
+  portraitImageUrl String?
+  iconImageUrl     String?
+  skills           CommanderSkill[] @relation("CommanderToSkill")
+  skins            CommanderSkin[]  @relation("CommanderToSkin")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model CommanderSkill {
+  id          Int                @id @default(autoincrement())
+  commanderId Int                @unique
+  name        String
+  type        commanderSkillType
+  level       Int
+  description String
+  imageUrl    String
+  commander   Commander          @relation("CommanderToSkill", fields: [commanderId], references: [id])
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+}
+
+model CommanderSkin {
+  id          Int       @id @default(autoincrement())
+  commanderId Int       @unique
+  name        String
+  imageUrl    String
+  commander   Commander @relation("CommanderToSkin", fields: [commanderId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}

@@ -2,9 +2,12 @@ import express, { Request, Response } from "express";
 import synergyRouter from "./routes/synergy.route";
 import heroRouter from "./routes/hero.route";
 import commanderRouter from "./routes/commander.route";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.port || 3000;
+
+app.use(cors());
 
 app.use(express.json());
 

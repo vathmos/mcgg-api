@@ -6,7 +6,7 @@ import cors from "cors";
 import { cacheControl } from "./middleware/cacheControl";
 
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.port || 2000;
 
 app.use(cors());
 

@@ -4,7 +4,7 @@ import {
   findCommanderById,
   findCommanderBySlug,
 } from "../services/commander.service";
-import commanderToDto from "../utils/CommanderToDto";
+import commanderToDto from "../dto/CommanderToDto";
 
 async function getAllCommanders(req: Request, res: Response) {
   const rawCommanders = await findCommanders();

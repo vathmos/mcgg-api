@@ -4,8 +4,8 @@ import {
   findSynergyById,
   findSynergyBySlug,
 } from "../services/synergy.service";
-import heroToDto from "../utils/heroToDto";
-import synergyToDto from "../utils/synergyToDto";
+import heroToDto from "../dto/heroToDto";
+import synergyToDto from "../dto/synergyToDto";
 
 
 async function getAllSynergies(req: Request, res: Response) {

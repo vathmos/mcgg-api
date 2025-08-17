@@ -88,7 +88,7 @@ model Hero {
   iconImageUrl     String?
   attributes       HeroAttribute[] @relation("HeroAttributes")
   synergies        Synergy[]       @relation("HeroSynergies")
-  Seasons          Season[]        @relation("HeroSeasons")
+  seasons          Season[]        @relation("HeroSeasons")
   skill            HeroSkill       @relation("HeroToSkill", fields: [skillId], references: [id])
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt

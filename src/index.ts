@@ -3,9 +3,10 @@ import synergyRouter from "./routes/synergy.route";
 import heroRouter from "./routes/hero.route";
 import commanderRouter from "./routes/commander.route";
 import cors from "cors";
+import { cacheControl } from "./middleware/cacheControl";
 
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.port || 2000;
 
 app.use(cors());
 
@@ -21,7 +22,7 @@ app.get("/", (req: Request, res: Response) => {
   res.send("M C G G  A P I");
 });
 
-app.get("/api", (req: Request, res: Response) => {
+app.get("/api", cacheControl(60), (req: Request, res: Response) => {
   res.json({
     synergies: `${process.env.BASE_URL}/synergies`,
     heroes: `${process.env.BASE_URL}/heroes`,

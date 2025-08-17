@@ -3,11 +3,12 @@ import {
   getAllSynergies,
   getSynergyByParam,
 } from "../controllers/synergy.controller";
+import { cacheControl } from "../middleware/cacheControl";
 
 const router = Router();
 
-router.get("/synergies", getAllSynergies);
+router.get("/synergies", cacheControl(600), getAllSynergies);
 
-router.get("/synergies/:param", getSynergyByParam);
+router.get("/synergies/:param", cacheControl(600), getSynergyByParam);
 
 export default router;

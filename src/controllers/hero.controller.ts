@@ -4,8 +4,8 @@ import {
   findHeroById,
   findHeroBySlug,
 } from "../services/hero.service";
-import heroToDto from "../utils/heroToDto";
-import synergyToDto from "../utils/synergyToDto";
+import heroToDto from "../dto/heroToDto";
+import synergyToDto from "../dto/synergyToDto";
 
 async function getAllHeroes(req: Request, res: Response) {
   const rawHeroes = await findHeroes();

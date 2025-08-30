@@ -32,6 +32,14 @@ enum commanderSkillType {
   PASSIVE
 }
 
+enum ItemType {
+  PHYSICAL
+  MAGIC
+  DEFENSE
+  MAGIC_CRYSTAL
+  SPECIAL_EQUIPMENT
+}
+
 model HeroAttribute {
   id             Int      @id @default(autoincrement())
   heroId         Int
@@ -123,7 +131,7 @@ model Commander {
 
 model CommanderSkill {
   id          Int                @id @default(autoincrement())
-  commanderId Int                @unique
+  commanderId Int                
   name        String
   type        commanderSkillType
   level       Int
@@ -142,4 +150,16 @@ model CommanderSkin {
   commander   Commander @relation("CommanderToSkin", fields: [commanderId], references: [id])
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+model Item {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  type        ItemType
+  summary     String
+  modifiers   String[]
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

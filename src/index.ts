@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import synergyRouter from "./routes/synergy.route";
 import heroRouter from "./routes/hero.route";
 import commanderRouter from "./routes/commander.route";
+import itemRouter from "./routes/item.route"
 import cors from "cors";
 import { cacheControl } from "./middleware/cacheControl";
 
@@ -17,6 +18,8 @@ app.use("/api", synergyRouter);
 app.use("/api", heroRouter);
 
 app.use("/api", commanderRouter);
+
+app.use("/api", itemRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("M C G G  A P I");
